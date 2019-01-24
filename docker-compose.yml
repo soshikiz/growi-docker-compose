@@ -6,22 +6,20 @@ services:
       context: .
       dockerfile: ./Dockerfile
     ports:
-      - 127.0.0.1:3000:3000    # localhost only by default
+      - 8080:3000 # localhost only by default
     links:
       - mongo:mongo
       - elasticsearch:elasticsearch
+      - https-portal:https-portal
     depends_on:
       - mongo
       - elasticsearch
+      - https-portal
     environment:
       - MONGO_URI=mongodb://mongo:27017/growi
       - ELASTICSEARCH_URI=http://elasticsearch:9200/growi
-      - PASSWORD_SEED=changeme
-      # - FILE_UPLOAD=local     # activate this line if you use local storage of server rather than AWS
-      # - MATHJAX=1             # activate this line if you want to use MathJax
-      # - PLANTUML_URI=http://  # activate this line and specify if you use your own PlantUML server rather than public plantuml.com
-      # - HACKMD_URI=http://    # activate this line and specify HackMD server URI which can be accessed from GROWI client browsers
-      # - HACKMD_URI_FOR_SERVER=http://hackmd:3000  # activate this line and specify HackMD server URI which can be accessed from this server container
+      - PASSWORD_SEED=keijo
+      - FILE_UPLOAD=local     # activate this line if you use local storage of server rather than AWS
 
     command: "dockerize
               -wait tcp://mongo:27017
@@ -39,8 +37,8 @@ services:
 
   elasticsearch:
     image: elasticsearch:5.3-alpine
-    environment:
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"  # increase amount if you have enough memory
+    #environment:
+    #  - "ES_JAVA_OPTS=-Xms256m -Xmx256m"  # increase amount if you have enough memory
     command:
       - sh
       - -c
@@ -51,6 +49,17 @@ services:
       - es_data:/usr/share/elasticsearch/data
       - es_plugins:/usr/share/elasticsearch/plugins
       - ./esconfig:/usr/share/elasticsearch/config
+
+  https-portal:
+    image: steveltn/https-portal:1.5.0
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+    environment:
+      DOMAINS: 'wiki.soshikiz.com -> http://app:3000'
+      STAGE: 'production'
+      # FORCE_RENEW: 'true'
 
 volumes:
   growi_data:

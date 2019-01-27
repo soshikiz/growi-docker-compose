@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BACKUP_PATH=/home/growi/backup
+BACKUP_PATH=$(pwd)/backup
 MONGO_CONTAINER_NAME=growi_mongo_1
 GROWI_CONTAINER_NAME=growi_app_1
 NETWORK_CONTAINER_NAME=growi_default

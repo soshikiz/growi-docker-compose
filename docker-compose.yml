@@ -10,11 +10,11 @@ services:
     links:
       - mongo:mongo
       - elasticsearch:elasticsearch
-        #- https-portal:https-portal
+        - https-portal:https-portal
     depends_on:
       - mongo
       - elasticsearch
-        #      - https-portal
+      - https-portal
     environment:
       - MONGO_URI=mongodb://mongo:27017/growi
       - ELASTICSEARCH_URI=http://elasticsearch:9200/growi
@@ -50,15 +50,15 @@ services:
       - es_plugins:/usr/share/elasticsearch/plugins
       - ./esconfig:/usr/share/elasticsearch/config
 
-        #  https-portal:
-        #    image: steveltn/https-portal:1.5.0
-        #    ports:
-        #      - '80:80'
-        #      - '443:443'
-        #    restart: always
-        #    environment:
-        #      DOMAINS: 'wiki.soshikiz.com -> http://app:3000'
-        #      STAGE: 'production'
+  https-portal:
+    image: steveltn/https-portal:1.5.0
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+    environment:
+      DOMAINS: 'wiki.soshikiz.com -> http://app:3000'
+      STAGE: 'production'
       # FORCE_RENEW: 'true'
 
 volumes:

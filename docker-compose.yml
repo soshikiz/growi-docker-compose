@@ -10,7 +10,7 @@ services:
     links:
       - mongo:mongo
       - elasticsearch:elasticsearch
-        - https-portal:https-portal
+      - https-portal:https-portal
     depends_on:
       - mongo
       - elasticsearch

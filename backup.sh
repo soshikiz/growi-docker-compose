@@ -23,6 +23,6 @@ sudo rm -rf ${BACKUP_PATH}/growi
 sudo rm -rf ${BACKUP_PATH}/data
 sudo rm -rf ${BACKUP_PATH}/${TODAY}_growi_backup.tar.gz
 
-sudo find ${MNT_POINT} -name "*.tar" -mtime +7 -delete
+sudo find ${MNT_POINT} -name "*.tar.gz" -mtime +7 -delete
 
 sudo fusermount -u ${MNT_POINT}

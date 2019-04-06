@@ -66,6 +66,15 @@ cd growi
 # execute backup script
 ./backup.sh
 ```
+Restore
+------
+```bash
+# goto growi-docker-compose workdir
+cd growi 
+
+# execute restore script
+./restore.sh
+```
 
 Documentation
 --------------

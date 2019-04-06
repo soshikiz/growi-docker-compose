@@ -72,8 +72,8 @@ Restore
 # goto growi-docker-compose workdir
 cd growi 
 
-# execute restore script
-./restore.sh
+# set backup files date and execute restore script.
+./restore.sh YYYYMMDD
 ```
 
 Documentation

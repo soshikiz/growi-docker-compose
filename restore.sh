@@ -5,8 +5,6 @@ MONGO_CONTAINER_NAME=growi_mongo_1
 GROWI_CONTAINER_NAME=growi_app_1
 NETWORK_CONTAINER_NAME=growi_default
 MNT_POINT=/mnt/gcs-bucket
-DATE
-
 
 if [ $# -ne 1 ]; then
 	echo "YYYYMMDDの形式で引数を指定してください" 1>&2
